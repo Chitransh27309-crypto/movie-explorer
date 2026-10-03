@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar.jsx"
 import Home from "./pages/Home.jsx"
 import Bookmarks from "./pages/Bookmarks.jsx"
+import Genres from "./pages/Genres.jsx"
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/genres" element={<Genres />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
       </Routes>
     </div>

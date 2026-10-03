@@ -37,7 +37,7 @@ function Navbar() {
             Explore
           </NavLink>
 
-          <NavLink className="cursor-pointer transition-colors duration-200 text-sm font-medium text-light-muted hover:text-movie-primary dark:text-dark-muted">
+          <NavLink to="/genres" className={({ isActive }) => `${navLinkBase} ${isActive ? 'text-movie-primary' : 'text-light-muted dark:text-dark-muted hover:text-movie-primary'}`}>
             Genres
           </NavLink>
 
@@ -96,7 +96,7 @@ function Navbar() {
               Explore
             </NavLink>
 
-            <NavLink className="cursor-pointer text-sm font-medium text-light-muted transition-colors duration-200 hover:text-movie-primary dark:text-dark-muted">
+            <NavLink to="/genres" className={({ isActive }) => `${navLinkBase} ${isActive ? 'text-movie-primary' : 'text-light-muted dark:text-dark-muted hover:text-movie-primary'}`}>
               Genres
             </NavLink>
 

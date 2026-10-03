@@ -28,3 +28,12 @@ export const getTopRatedMovies = () => {
     return tmdbFetch("/movie/top_rated?language=en-US&page=1");
 };
 
+export const getGenres = () => {
+    return tmdbFetch("/genre/movie/list?language=en");
+};
+
+export const getMoviesByGenre = (genreId) => {
+    return tmdbFetch(
+        `/discover/movie?with_genres=${genreId}&language=en-US&page=1`
+    );
+};
