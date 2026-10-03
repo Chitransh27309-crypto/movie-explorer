@@ -19,3 +19,12 @@ const tmdbFetch = async (endpoint) => {
 export const getPopularMovies = () => {
     return tmdbFetch("/movie/popular?language=en-US&page=1");
 };
+
+export const getTrendingMovies = () => {
+    return tmdbFetch("/trending/movie/week?language=en-US");
+};
+
+export const getTopRatedMovies = () => {
+    return tmdbFetch("/movie/top_rated?language=en-US&page=1");
+};
+
