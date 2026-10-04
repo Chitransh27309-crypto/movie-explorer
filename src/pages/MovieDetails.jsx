@@ -261,7 +261,7 @@ function MovieDetails() {
 
                     {writer && (
                         <div>
-                            <div className="aspect-[2/3] overflow-hidden rounded-xl bg-light-surface dark:bg-dark-surface">
+                            <div className="aspect-2/3 overflow-hidden rounded-xl bg-light-surface dark:bg-dark-surface">
                                 <img
                                     src={
                                         writer.profile_path

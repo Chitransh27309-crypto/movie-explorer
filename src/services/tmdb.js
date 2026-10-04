@@ -1,12 +1,13 @@
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
-const tmdbFetch = async (endpoint) => {
+const tmdbFetch = async (endpoint, signal) => {
     const response = await fetch(`${TMDB_BASE_URL}${endpoint}`, {
         method: "GET",
         headers: {
             accept: "application/json",
             Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
         },
+        signal
     });
     console.log("API KEY ", import.meta.env.VITE_TMDB_TOKEN)
     if (!response.ok) {
@@ -40,4 +41,14 @@ export const getMoviesByGenre = (genreId) => {
 
 export const getMovieDetails = (movieId) => {
     return tmdbFetch(`/movie/${movieId}?language=en-US&append_to_response=credits`);
+};
+
+export const getExploreMovies = (page = 1, sortBy = "popularity.desc", genreId = "", signal) => {
+    let endpoint = `/discover/movie?language=en-US&page=${page}&sort_by=${sortBy}`;
+
+    if (genreId) {
+        endpoint += `&with_genres=${genreId}`;
+    }
+
+    return tmdbFetch(endpoint,signal);
 };
