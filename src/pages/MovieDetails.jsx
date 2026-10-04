@@ -88,6 +88,13 @@ function MovieDetails() {
         );
     }
 
+    const director = movie.credits?.crew?.find(
+        (person) => person.job === "Director"
+    );
+
+    const writer = movie.credits?.crew?.find(
+        (person) => person.job === "Writer"
+    );
     return (
         <main className="bg-light-bg dark:bg-dark-bg">
 
@@ -106,10 +113,10 @@ function MovieDetails() {
                     onClick={() => navigate(-1)}
                     className="absolute left-2 top-2 z-20 flex cursor-pointer items-center gap-2 rounded-lg bg-black/40 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition duration-200 hover:bg-movie-primary"
                 >
-                    <img src={backIcon} alt="Back Icon" className="h-4 invert"/> Back
+                    <img src={backIcon} alt="Back Icon" className="h-4 invert" /> Back
                 </button>
 
-                <div className="relative z-10 mx-auto flex min-h-125 max-w-7xl items-end px-5 top-15">
+                <div className="relative z-10 mx-auto my-15 flex min-h-125 max-w-7xl items-end ">
                     <div className="flex w-full flex-col gap-8 md:flex-row md:items-end">
 
                         {/* Poster */}
@@ -186,6 +193,96 @@ function MovieDetails() {
                 <p className="mt-4 max-w-4xl text-base leading-8 text-light-muted dark:text-dark-muted">
                     {movie.overview || "No overview available."}
                 </p>
+            </section>
+
+            {/* Cast */}
+            <section className="mx-auto max-w-7xl px-5 pb-10">
+                <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">
+                    Cast
+                </h2>
+
+                <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                    {movie.credits?.cast?.slice(0, 6).map((actor) => (
+                        <div key={actor.id}>
+                            <div className="aspect-2/3 overflow-hidden rounded-xl bg-light-surface dark:bg-dark-surface">
+                                <img
+                                    src={
+                                        actor.profile_path
+                                            ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+                                            : "/movie-placeholder.jpg"
+                                    }
+                                    alt={actor.name}
+                                    className="h-full w-full object-cover"
+                                />
+                            </div>
+
+                            <h3 className="mt-3 truncate font-semibold text-light-text dark:text-dark-text">
+                                {actor.name}
+                            </h3>
+
+                            <p className="mt-1 truncate text-sm text-light-muted dark:text-dark-muted">
+                                {actor.character}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Crew */}
+            <section className="mx-auto max-w-7xl px-5 pb-12">
+                <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">
+                    Crew
+                </h2>
+
+                <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
+                    {director && (
+                        <div>
+                            <div className="aspect-2/3 overflow-hidden rounded-xl bg-light-surface dark:bg-dark-surface">
+                                <img
+                                    src={
+                                        director.profile_path
+                                            ? `https://image.tmdb.org/t/p/w300${director.profile_path}`
+                                            : "/movie-placeholder.jpg"
+                                    }
+                                    alt={director.name}
+                                    className="h-full w-full object-cover"
+                                />
+                            </div>
+
+                            <h3 className="mt-3 truncate font-semibold text-light-text dark:text-dark-text">
+                                {director.name}
+                            </h3>
+
+                            <p className="mt-1 text-sm text-light-muted dark:text-dark-muted">
+                                Director
+                            </p>
+                        </div>
+                    )}
+
+                    {writer && (
+                        <div>
+                            <div className="aspect-[2/3] overflow-hidden rounded-xl bg-light-surface dark:bg-dark-surface">
+                                <img
+                                    src={
+                                        writer.profile_path
+                                            ? `https://image.tmdb.org/t/p/w300${writer.profile_path}`
+                                            : "/movie-placeholder.jpg"
+                                    }
+                                    alt={writer.name}
+                                    className="h-full w-full object-cover"
+                                />
+                            </div>
+
+                            <h3 className="mt-3 truncate font-semibold text-light-text dark:text-dark-text">
+                                {writer.name}
+                            </h3>
+
+                            <p className="mt-1 text-sm text-light-muted dark:text-dark-muted">
+                                Writer
+                            </p>
+                        </div>
+                    )}
+                </div>
             </section>
 
         </main>

@@ -39,5 +39,5 @@ export const getMoviesByGenre = (genreId) => {
 };
 
 export const getMovieDetails = (movieId) => {
-    return tmdbFetch(`/movie/${movieId}?language=en-US`);
+    return tmdbFetch(`/movie/${movieId}?language=en-US&append_to_response=credits`);
 };
