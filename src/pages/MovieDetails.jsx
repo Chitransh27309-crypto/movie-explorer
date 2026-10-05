@@ -4,6 +4,8 @@ import { getMovieDetails } from "../services/tmdb.js";
 import bookmarkOutline from "../assets/bookmark-outline.png";
 import bookmarkFilled from "../assets/bookmark-filled.png";
 import backIcon from "../assets/back.png"
+import startIcon from "../assets/star.png"
+import Loader from "../components/Loader.jsx";
 
 function MovieDetails() {
     const { movieId } = useParams();
@@ -69,13 +71,7 @@ function MovieDetails() {
     };
 
     if (loading) {
-        return (
-            <main className="flex min-h-[70vh] items-center justify-center">
-                <p className="text-light-muted dark:text-dark-muted">
-                    Loading movie details...
-                </p>
-            </main>
-        );
+        return <Loader />
     }
 
     if (!movie) {
@@ -140,7 +136,7 @@ function MovieDetails() {
 
                             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-300">
                                 <span>
-                                    ⭐ {movie.vote_average.toFixed(1)}
+                                    <img src={startIcon} alt="Star Icon" className="h-5 pb-1 inline" />  {movie.vote_average.toFixed(1)}
                                 </span>
 
                                 <span>

@@ -5,6 +5,7 @@ import Bookmarks from "./pages/Bookmarks.jsx"
 import Genres from "./pages/Genres.jsx"
 import MovieDetails from "./pages/MovieDetails.jsx"
 import Explore from "./pages/Explore.jsx"
+import Search from "./pages/Search.jsx"
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/bookmarks" element={<Bookmarks />} />
         <Route path="/movie/:movieId" element={<MovieDetails />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </div>
   )

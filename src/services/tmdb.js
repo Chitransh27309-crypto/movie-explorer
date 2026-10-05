@@ -50,5 +50,11 @@ export const getExploreMovies = (page = 1, sortBy = "popularity.desc", genreId =
         endpoint += `&with_genres=${genreId}`;
     }
 
-    return tmdbFetch(endpoint,signal);
+    return tmdbFetch(endpoint, signal);
+};
+
+export const searchMovies = (query, page = 1) => {
+    return tmdbFetch(
+        `/search/movie?query=${encodeURIComponent(query)}&language=en-US&page=${page}`
+    );
 };

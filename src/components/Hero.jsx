@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import searchIcon from "../assets/search.png"
 import rightArrowIcon from "../assets/right-arrow.png"
 
 function Hero() {
+    const [query, setQuery] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const trimmedQuery = query.trim();
+
+        if (!trimmedQuery) {
+            return;
+        }
+
+        navigate(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+    };
     return (
         <section >
             <div className="relative mx-auto flex min-h-155 sm:min-h-130 items-center overflow-hidden bg-light-surface dark:bg-dark-surface">
@@ -36,20 +51,31 @@ function Hero() {
                     </p>
 
                     {/* Search */}
-                    <div className="mt-8 flex max-w-2xl flex-col sm:flex-row overflow-hidden rounded-2xl border border-light-border bg-light-surface/95 shadow-lg backdrop-blur-sm dark:border-dark-border dark:bg-dark-surface/90">
+                    <form
+                        onSubmit={handleSearch}
+                        className="mt-8 flex max-w-2xl flex-col sm:flex-row overflow-hidden rounded-2xl border border-light-border bg-light-surface/95 shadow-lg backdrop-blur-sm dark:border-dark-border dark:bg-dark-surface/90"
+                    >
                         <div className="flex min-w-0 flex-1 items-center">
 
                             <span className="pl-4 text-light-muted dark:text-dark-muted">
                                 <img src={searchIcon} alt="searchIcon" className="dark:invert h-6 w-6" />
                             </span>
 
-                            <input type="text" placeholder="Search movies..." className="min-w-0 flex-1 bg-transparent px-3 py-4 text-light-text outline-none placeholder:text-light-muted dark:text-dark-text dark:placeholder:text-dark-muted" />
+                            <input
+                                type="text"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search movies..."
+                                className="min-w-0 flex-1 bg-transparent px-3 py-4 text-light-text outline-none placeholder:text-light-muted dark:text-dark-text dark:placeholder:text-dark-muted" />
                         </div>
 
-                        <button className="cursor-pointer bg-movie-primary w-full px-6 py-3 sm:w-auto sm:py-4 font-semibold text-white transition duration-200 hover:opacity-90 sm:px-8">
+                        <button
+                            type="submit"
+                            className="cursor-pointer bg-movie-primary w-full px-6 py-3 sm:w-auto sm:py-4 font-semibold text-white transition duration-200 hover:opacity-90 sm:px-8"
+                        >
                             Search
                         </button>
-                    </div>
+                    </form>
 
                     {/* CTA */}
                     <button className="group mt-4 cursor-pointer rounded-xl border border-light-border bg-light-surface/80 px-6 py-3 text-sm font-semibold text-light-text transition duration-200 hover:border-movie-primary hover:text-movie-primary dark:border-dark-border dark:bg-dark-surface/60 dark:text-dark-text">

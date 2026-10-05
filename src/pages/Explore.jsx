@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import MovieCard from "../components/MovieCard.jsx";
 import { getExploreMovies, getGenres } from "../services/tmdb.js";
+import Loader from "../components/Loader.jsx";
 
 function Explore() {
     const [movies, setMovies] = useState([]);
@@ -147,13 +148,7 @@ function Explore() {
                 </select>
             </div>
 
-            {loading && movies.length === 0 && (
-                <div className="flex min-h-60 items-center justify-center">
-                    <p className="text-light-muted dark:text-dark-muted">
-                        Loading movies...
-                    </p>
-                </div>
-            )}
+            {loading && movies.length === 0 && <Loader />}
 
             {error && movies.length === 0 && (
                 <div className="flex min-h-60 flex-col items-center justify-center gap-4">
@@ -193,11 +188,7 @@ function Explore() {
                 ref={loaderRef}
                 className="flex h-20 items-center justify-center"
             >
-                {loading && (
-                    <p className="text-light-muted dark:text-dark-muted">
-                        Loading more movies...
-                    </p>
-                )}
+                {loading && movies.length > 0 && <Loader />}
             </div>
 
         </main>

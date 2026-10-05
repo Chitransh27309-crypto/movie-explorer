@@ -2,6 +2,7 @@ import { useState } from "react";
 import bookmarkOutline from "../assets/bookmark-outline.png";
 import bookmarkFilled from "../assets/bookmark-filled.png";
 import { Link } from "react-router-dom";
+import startIcon from "../assets/star.png"
 
 function MovieCard({ movie, onBookmarkChange }) {
     const [isBookmarked, setIsBookmarked] = useState(() => {
@@ -65,7 +66,7 @@ function MovieCard({ movie, onBookmarkChange }) {
                         </span>
 
                         <span className="font-semibold text-movie-primary">
-                            ⭐ {movie.vote_average.toFixed(1)}
+                            <img src={startIcon} alt="Star Icon" className="h-5 pb-1 inline"/> {movie.vote_average.toFixed(1)}
                         </span>
                     </div>
                 </div>
