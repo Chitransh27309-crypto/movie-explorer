@@ -92,10 +92,6 @@ function Navbar() {
               onClick={toggleTheme}
             />
           </button>
-
-          <div className="hidden h-9 w-9 items-center justify-center rounded-full bg-movie-secondary text-white sm:flex">
-            U
-          </div>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-light-border text-xl text-light-text dark:border-dark-border dark:text-dark-text md:hidden"
@@ -157,10 +153,6 @@ function Navbar() {
             <NavLink to='/bookmarks' className={({ isActive }) => `${navLinkBase} ${isActive ? 'text-movie-primary' : 'text-light-muted dark:text-dark-muted hover:text-movie-primary'}`} >
               Bookmarks
             </NavLink>
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-movie-secondary text-white sm:hidden">
-              U
-            </div>
 
           </div>
         </div>
