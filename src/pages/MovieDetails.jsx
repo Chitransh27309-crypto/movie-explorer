@@ -99,7 +99,10 @@ function MovieDetails() {
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
-                        backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+                        backgroundImage: `url(${movie.backdrop_path
+                            ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+                            : "/movie-placeholder.png"
+                            })`,
                     }}
                 />
 
@@ -117,7 +120,7 @@ function MovieDetails() {
 
                         {/* Poster */}
                         <img
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '/movie-placeholder.png'}
                             alt={movie.title}
                             className="w-48 rounded-2xl shadow-2xl sm:w-56 md:w-64"
                         />
@@ -148,7 +151,7 @@ function MovieDetails() {
                                         {movie.runtime} min
                                     </span>
                                 )}
-                                {movie.adult && <span> "Adult" </span>}
+                                {movie.adult && <span>Adult</span>}
                                 <span>{movie.status} </span>
                             </div>
 
@@ -205,9 +208,12 @@ function MovieDetails() {
                                     src={
                                         actor.profile_path
                                             ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
-                                            : "/movie-placeholder.jpg"
+                                            : "/movie-placeholder.png"
                                     }
                                     alt={actor.name}
+                                    onError={(e) => {
+                                        e.currentTarget.src = "/movie-placeholder.png";
+                                    }}
                                     className="h-full w-full object-cover"
                                 />
                             </div>
@@ -238,9 +244,12 @@ function MovieDetails() {
                                     src={
                                         director.profile_path
                                             ? `https://image.tmdb.org/t/p/w300${director.profile_path}`
-                                            : "/movie-placeholder.jpg"
+                                            : "/movie-placeholder.png"
                                     }
                                     alt={director.name}
+                                    onError={(e) => {
+                                        e.currentTarget.src = "/movie-placeholder.png";
+                                    }}
                                     className="h-full w-full object-cover"
                                 />
                             </div>
@@ -262,9 +271,12 @@ function MovieDetails() {
                                     src={
                                         writer.profile_path
                                             ? `https://image.tmdb.org/t/p/w300${writer.profile_path}`
-                                            : "/movie-placeholder.jpg"
+                                            : "/movie-placeholder.png"
                                     }
                                     alt={writer.name}
+                                    onError={(e) => {
+                                        e.currentTarget.src = "/movie-placeholder.png";
+                                    }}
                                     className="h-full w-full object-cover"
                                 />
                             </div>

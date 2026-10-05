@@ -9,7 +9,6 @@ const tmdbFetch = async (endpoint, signal) => {
         },
         signal
     });
-    console.log("API KEY ", import.meta.env.VITE_TMDB_TOKEN)
     if (!response.ok) {
         throw new Error(`TMDB request failed: ${response.status}`);
     }
@@ -17,18 +16,26 @@ const tmdbFetch = async (endpoint, signal) => {
     return data;
 };
 
-export const getPopularMovies = () => {
-    return tmdbFetch("/movie/popular?language=en-US&page=1");
+export const getPopularMovies = (page = 1, signal) => {
+    return tmdbFetch(
+        `/movie/popular?language=en-US&page=${page}`,
+        signal
+    );
 };
 
-export const getTrendingMovies = () => {
-    return tmdbFetch("/trending/movie/week?language=en-US");
+export const getTrendingMovies = (page = 1, signal) => {
+    return tmdbFetch(
+        `/trending/movie/week?language=en-US&page=${page}`,
+        signal
+    );
 };
 
-export const getTopRatedMovies = () => {
-    return tmdbFetch("/movie/top_rated?language=en-US&page=1");
+export const getTopRatedMovies = (page = 1, signal) => {
+    return tmdbFetch(
+        `/movie/top_rated?language=en-US&page=${page}`,
+        signal
+    );
 };
-
 export const getGenres = () => {
     return tmdbFetch("/genre/movie/list?language=en");
 };
@@ -53,8 +60,9 @@ export const getExploreMovies = (page = 1, sortBy = "popularity.desc", genreId =
     return tmdbFetch(endpoint, signal);
 };
 
-export const searchMovies = (query, page = 1) => {
+export const searchMovies = (query, page = 1, signal) => {
     return tmdbFetch(
-        `/search/movie?query=${encodeURIComponent(query)}&language=en-US&page=${page}`
+        `/search/movie?query=${encodeURIComponent(query)}&language=en-US&page=${page}`,
+        signal
     );
 };

@@ -47,8 +47,13 @@ function MovieCard({ movie, onBookmarkChange }) {
             <Link to={`/movie/${movie.id}`} >
                 <div className="relative aspect-2/3 overflow-hidden">
                     <img
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        src={movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                            : "/movie-placeholder.jpg"}
                         alt={movie.title}
+                        onError={(e) => {
+                            e.currentTarget.src = "/movie-placeholder.png";
+                        }}
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                     />
 
@@ -66,7 +71,7 @@ function MovieCard({ movie, onBookmarkChange }) {
                         </span>
 
                         <span className="font-semibold text-movie-primary">
-                            <img src={startIcon} alt="Star Icon" className="h-5 pb-1 inline"/> {movie.vote_average.toFixed(1)}
+                            <img src={startIcon} alt="Star Icon" className="h-5 pb-1 inline" /> {movie.vote_average.toFixed(1)}
                         </span>
                     </div>
                 </div>

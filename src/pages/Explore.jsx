@@ -1,9 +1,21 @@
 import { useEffect, useState, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard.jsx";
-import { getExploreMovies, getGenres } from "../services/tmdb.js";
+import { getExploreMovies, getGenres, getTrendingMovies, getPopularMovies, getTopRatedMovies } from "../services/tmdb.js";
 import Loader from "../components/Loader.jsx";
 
 function Explore() {
+    const [searchParams] = useSearchParams();
+    const category = searchParams.get("category");
+
+    const categoryTitles = {
+        popular: "Popular Movies",
+        trending: "Trending Movies",
+        "top-rated": "Top Rated Movies",
+    };
+
+    const pageTitle = categoryTitles[category] || "Explore Movies";
+
     const [movies, setMovies] = useState([]);
     const [sortBy, setSortBy] = useState("popularity.desc");
     const [genres, setGenres] = useState([]);
@@ -16,7 +28,6 @@ function Explore() {
 
     const loaderRef = useRef(null);
     const isFetchingRef = useRef(false);
-    const controllerRef = useRef(null);
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -34,7 +45,6 @@ function Explore() {
 
     useEffect(() => {
         const controller = new AbortController();
-        controllerRef.current = controller
         const fetchMovies = async () => {
             if (isFetchingRef.current) {
                 return
@@ -44,7 +54,16 @@ function Explore() {
                 setLoading(true)
                 setError('')
 
-                const data = await getExploreMovies(page, sortBy, genreId, controller.signal)
+                let data;
+                if (category === "popular") {
+                    data = await getPopularMovies(page, controller.signal);
+                } else if (category === "trending") {
+                    data = await getTrendingMovies(page, controller.signal);
+                } else if (category === "top-rated") {
+                    data = await getTopRatedMovies(page, controller.signal);
+                } else {
+                    data = await getExploreMovies(page, sortBy, genreId, controller.signal);
+                }
 
                 if (controller.signal.aborted) return;
 
@@ -56,9 +75,8 @@ function Explore() {
                     console.error(error);
                     setError("Failed to load movies. Please try again.");
                 }
-            }
-            finally {
-                if (controllerRef.current === controller) {
+            } finally {
+                if (!controller.signal.aborted) {
                     isFetchingRef.current = false;
                     setLoading(false);
                 }
@@ -68,12 +86,9 @@ function Explore() {
         fetchMovies();
         return () => {
             controller.abort();
-
-            if (controllerRef.current === controller) {
-                isFetchingRef.current = false;
-            }
+            isFetchingRef.current = false;
         };
-    }, [page, sortBy, genreId, retryCount]);
+    }, [page, sortBy, genreId, retryCount, category]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -119,7 +134,7 @@ function Explore() {
 
             <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <h1 className="text-3xl font-bold text-light-text dark:text-dark-text">
-                    Explore Movies
+                    {pageTitle}
                 </h1>
 
                 {/* Genre */}

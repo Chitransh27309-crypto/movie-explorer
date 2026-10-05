@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
+import { Link } from 'react-router-dom';
+import rightArrowIcon from "../assets/right-arrow.png"
 
 
-function MovieSection({ title, getMovies }) {
+function MovieSection({ title, getMovies, catagory }) {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -25,9 +27,12 @@ function MovieSection({ title, getMovies }) {
                     {title}
                 </h2>
 
-                <button className="cursor-pointer text-sm font-semibold text-movie-primary">
-                    View All →
-                </button>
+                <Link
+                    to={`/explore?category=${catagory}`}
+                    className="cursor-pointer text-sm font-semibold text-light-text transition-colors duration-200 hover:text-movie-primary dark:text-dark-text"
+                >
+                    View All <img src={rightArrowIcon} alt="Arrow" className="h-4 dark:invert inline mx-1 mb-1" />
+                </Link>
             </div>
 
             <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">

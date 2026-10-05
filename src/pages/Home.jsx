@@ -6,9 +6,9 @@ function Home() {
     return (
         <div>
             <Hero />
-            <MovieSection title="Popular Movies" getMovies={getPopularMovies} />
-            <MovieSection title="Trending Movies" getMovies={getTrendingMovies} />
-            <MovieSection title="Top Rated Movies" getMovies={getTopRatedMovies} />
+            <MovieSection title="Popular Movies" catagory='popular' getMovies={getPopularMovies} />
+            <MovieSection title="Trending Movies" catagory='trending' getMovies={getTrendingMovies} />
+            <MovieSection title="Top Rated Movies" catagory='top-rated' getMovies={getTopRatedMovies} />
         </div>
     )
 }

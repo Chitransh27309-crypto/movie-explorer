@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import searchIcon from "../assets/search.png"
 import rightArrowIcon from "../assets/right-arrow.png"
 
@@ -21,7 +21,7 @@ function Hero() {
         <section >
             <div className="relative mx-auto flex min-h-155 sm:min-h-130 items-center overflow-hidden bg-light-surface dark:bg-dark-surface">
                 {/* Background Image */}
-                <div className="absolute inset-0 bg-[url('/hero.jpg')] bg-cover bg-[position:65%_center] sm:bg-center bg-no-repeat" />
+                <div className="absolute inset-0 bg-[url('/hero.jpg')] bg-cover bg-position-[65%_center] sm:bg-center bg-no-repeat" />
 
                 {/* Light overlay */}
                 <div className="absolute inset-0 bg-linear-to-r from-white via-white/90 to-white/20 dark:hidden" />
@@ -79,7 +79,7 @@ function Hero() {
 
                     {/* CTA */}
                     <button className="group mt-4 cursor-pointer rounded-xl border border-light-border bg-light-surface/80 px-6 py-3 text-sm font-semibold text-light-text transition duration-200 hover:border-movie-primary hover:text-movie-primary dark:border-dark-border dark:bg-dark-surface/60 dark:text-dark-text">
-                        Explore Movies <img src={rightArrowIcon} className="dark:invert h-6 w-6 inline transition-transform duration-200 group-hover:translate-x-1" />
+                        <Link to="/explore"> Explore Movies <img src={rightArrowIcon} className="dark:invert h-6 w-6 inline transition-transform duration-200 group-hover:translate-x-1" /></Link>
                     </button>
                 </div>
             </div>

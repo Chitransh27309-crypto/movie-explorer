@@ -4,16 +4,33 @@ import nightModeIcon from "../assets/night-mode.png";
 import hamburgerIcon from "../assets/hamburger.png"
 import cancelIcon from "../assets/letter-x.png"
 import { useTheme } from "../context/ThemeContext";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import searchIcon from "../assets/search.png";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { toggleTheme } = useTheme()
 
+  const navigate = useNavigate();
+
+  const handleNavbarSearch = (e) => {
+    e.preventDefault();
+
+    const trimmedQuery = searchQuery.trim();
+
+    if (!trimmedQuery) {
+      return;
+    }
+
+    navigate(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+    setSearchQuery("");
+  };
+
   const navLinkBase = "cursor-pointer transition-colors duration-200 text-sm font-medium";
   return (
-    <nav className="sticky w-full border-b border-light-border bg-light-surface dark:border-dark-border dark:bg-dark-surface">
+    <nav className="sticky top-0 z-50 w-full border-b border-light-border bg-light-surface dark:border-dark-border dark:bg-dark-surface">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
 
         {/* Logo */}
@@ -26,6 +43,25 @@ function Navbar() {
             Movie Explorer
           </span>
         </div>
+
+        <form
+          onSubmit={handleNavbarSearch}
+          className="hidden w-64 items-center overflow-hidden rounded-xl border border-light-border bg-light-surface md:flex dark:border-dark-border dark:bg-dark-surface"
+        >
+          <img
+            src={searchIcon}
+            alt="Search"
+            className="ml-3 h-5 w-5 dark:invert"
+          />
+
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search movies..."
+            className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-light-text outline-none placeholder:text-light-muted dark:text-dark-text dark:placeholder:text-dark-muted"
+          />
+        </form>
 
         {/* Navigation */}
         <div className="hidden items-center gap-8 md:flex">
@@ -87,6 +123,24 @@ function Navbar() {
       {isMenuOpen && (
         <div className="border-t border-light-border py-4 dark:border-dark-border md:hidden">
           <div className="flex flex-col gap-4 px-4">
+            <form
+              onSubmit={handleNavbarSearch}
+              className="flex items-center overflow-hidden rounded-xl border border-light-border bg-light-surface dark:border-dark-border dark:bg-dark-surface"
+            >
+              <img
+                src={searchIcon}
+                alt="Search"
+                className="ml-3 h-5 w-5 dark:invert"
+              />
+
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search movies..."
+                className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-light-text outline-none placeholder:text-light-muted dark:text-dark-text dark:placeholder:text-dark-muted"
+              />
+            </form>
 
             <NavLink to='/' className={({ isActive }) => `${navLinkBase} ${isActive ? 'text-movie-primary' : 'text-light-muted dark:text-dark-muted hover:text-movie-primary'}`}>
               Home
